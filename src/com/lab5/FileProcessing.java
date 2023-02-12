@@ -7,15 +7,17 @@ import java.util.Scanner;
 
 public class FileProcessing {
 
+    /*
     String getFile() {
         Scanner in = new Scanner(System.in);
         String fileName = in.nextLine();
         in.close();
         return fileName;
     }
+     */
 
     HashSet<MusicBand> readFile(String fileName) {
-
+        return new HashSet<>();
     }
 
     void writeIntoFile() {
