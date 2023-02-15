@@ -12,8 +12,9 @@ public class UserInteraction {
 
         //TODO: errors processing
         //Locale locale = new Locale("en");
-        ResourceBundle r = ResourceBundle.getBundle("command_line");
-        System.out.println(r.getString("filegreeting"));
+        //ResourceBundle r = ResourceBundle.getBundle("command_line");
+        //System.out.println(r.getString("filegreeting"));
+        System.out.println("Type in the name of the file");
         Scanner in = new Scanner(System.in);
         String fileName = in.nextLine();
         collectionManagement.setCollection(fileProcessing.readFile(fileName));
