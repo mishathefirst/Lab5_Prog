@@ -5,6 +5,7 @@ import com.lab5.entities.MusicBand;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class CollectionManagement {
@@ -33,15 +34,20 @@ public class CollectionManagement {
         return new CollectionData(collectionType, initialisationDate, collection.size(), collection.isEmpty());
     }
 
-    String show() {
-        collection.iterator()
+    StringBuilder show() {
+        Iterator<MusicBand> iterator = collection.iterator();
+        StringBuilder collectionElements = new StringBuilder();
+        while (iterator.hasNext()) {
+            collectionElements.append(iterator.next().getName().concat(", "));
+        }
+        return collectionElements;
     }
 
     public void setCollection(HashSet<MusicBand> collection) {
         this.collection = collection;
     }
 
-    public HashSet<MusicBand> getCollection() {
+    public Set<MusicBand> getCollection() {
         return collection;
     }
 }

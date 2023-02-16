@@ -2,6 +2,7 @@ package com.lab5;
 
 import com.lab5.business_entities.CollectionData;
 
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -27,6 +28,8 @@ public class UserInteraction {
         while(!command.equals("exit")) {
             if (command.equals("info")) {
                 printCollectionInfo(collectionManagement.info());
+            } else if (command.equals("show")) {
+                System.out.println(collectionManagement.show());
             }
             System.out.println("Type in the command:");
             command = in.nextLine();
@@ -38,7 +41,7 @@ public class UserInteraction {
 
     private void printCollectionInfo(CollectionData collectionData) {
         System.out.println("Тип коллекции: " + collectionData.getType());
-        System.out.println("Дата инициализации коллекции: " + collectionData.getInitialisationDate());
+        System.out.println("Дата инициализации коллекции: " + new Date(collectionData.getInitialisationDate()));
         System.out.println("Размер коллекции: " + collectionData.getSize());
         System.out.println("Пуста ли коллекция: " + collectionData.isEmpty());
     }
