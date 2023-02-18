@@ -30,6 +30,12 @@ public class UserInteraction {
                 printCollectionInfo(collectionManagement.info());
             } else if (command.equals("show")) {
                 System.out.println(collectionManagement.show());
+            } else if (command.equals("help")) {
+                printHelpCommand();
+            } else if (command.equals("add")) {
+                printAddCommand();
+            } else {
+                System.out.println("Command not found. Type \"help\" to get information on an interaction with the program");
             }
             System.out.println("Type in the command:");
             command = in.nextLine();
@@ -40,10 +46,31 @@ public class UserInteraction {
 
 
     private void printCollectionInfo(CollectionData collectionData) {
-        System.out.println("Тип коллекции: " + collectionData.getType());
-        System.out.println("Дата инициализации коллекции: " + new Date(collectionData.getInitialisationDate()));
-        System.out.println("Размер коллекции: " + collectionData.getSize());
-        System.out.println("Пуста ли коллекция: " + collectionData.isEmpty());
+        System.out.println("Collection type: " + collectionData.getType());
+        System.out.println("Collection initialisation date: " + new Date(collectionData.getInitialisationDate()));
+        System.out.println("Collection size: " + collectionData.getSize());
+        System.out.println("Is collection empty: " + collectionData.isEmpty());
+    }
+
+    private void printHelpCommand() {
+        System.out.println("\"help\" - show info on the interaction with the program");
+        System.out.println("\"show\" - show all elements of the collection");
+        System.out.println("\"info\" - show info on the collection");
+        System.out.println("\"add\" - add an element to the collection");
+        System.out.println("\"update_id {element's number}\" - update an element of the collection by its id");
+        System.out.println("\"remove_by_id {element's number}\" - remove an element from the collection by its id");
+        System.out.println("\"clear\" - clear the collection");
+        System.out.println("\"save\" - save changes into the file");
+        System.out.println("\"execute_script {file name}\" - execute a script written in the same format as commands to the prgram");
+        System.out.println("\"exit\" - leave the program without saving changes");
+        System.out.println("\"history\" - show last 11 commands");
+        System.out.println("\"add_if_min\" - add an element if it is the smallest in the collection");
+        System.out.println("\"remove_lower\" - delete all elements from the collection that are lower than the current one.");
+
+    }
+
+    private void printAddCommand() {
+        System.out.println("Print the name of the band you would like to add: ");
     }
 
 }
