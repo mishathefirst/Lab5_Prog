@@ -27,22 +27,23 @@ public class UserInteraction {
         while(!command.equals("exit")) {
             switch (command) {
                 case "info":
-                    historyQueue.add("info");
+                    historyUpdate(historyQueue, "info");
                     printCollectionInfo(collectionManagement.info());
                     break;
                 case "show":
-                    historyQueue.add("show");
+                    historyUpdate(historyQueue, "show");
                     System.out.println(collectionManagement.show());
                     break;
                 case "help":
-                    historyQueue.add("help");
+                    historyUpdate(historyQueue, "help");
                     printHelpCommand();
                     break;
                 case "add":
-                    historyQueue.add("add");
+                    historyUpdate( historyQueue, "add");
                     printAddCommand();
                     break;
                 case "history":
+                    historyUpdate(historyQueue, "history");
                     for (int i = 0; i < historyQueue.toArray().length; i++) {
                         System.out.println(historyQueue.toArray()[i]);
                     }
@@ -86,6 +87,13 @@ public class UserInteraction {
     private void printAddCommand() {
         System.out.println("Print the name of the band you would like to add: ");
 
+    }
+
+    private void historyUpdate(Queue<String> historyQueue, String command) {
+        historyQueue.add(command);
+        if (historyQueue.size() > 11) {
+            historyQueue.poll();
+        }
     }
 
 }
