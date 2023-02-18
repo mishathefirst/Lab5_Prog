@@ -2,16 +2,15 @@ package com.lab5;
 
 import com.lab5.business_entities.CollectionData;
 
-import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserInteraction {
 
     public void start() {
         FileProcessing fileProcessing = new FileProcessing();
         CollectionManagement collectionManagement = new CollectionManagement();
+
+        Queue<String> historyQueue = new ArrayDeque<>(11);
 
 
         //TODO: errors processing
@@ -26,16 +25,31 @@ public class UserInteraction {
         System.out.println("Type in the command:");
         String command = in.nextLine();
         while(!command.equals("exit")) {
-            if (command.equals("info")) {
-                printCollectionInfo(collectionManagement.info());
-            } else if (command.equals("show")) {
-                System.out.println(collectionManagement.show());
-            } else if (command.equals("help")) {
-                printHelpCommand();
-            } else if (command.equals("add")) {
-                printAddCommand();
-            } else {
-                System.out.println("Command not found. Type \"help\" to get information on an interaction with the program");
+            switch (command) {
+                case "info":
+                    historyQueue.add("info");
+                    printCollectionInfo(collectionManagement.info());
+                    break;
+                case "show":
+                    historyQueue.add("show");
+                    System.out.println(collectionManagement.show());
+                    break;
+                case "help":
+                    historyQueue.add("help");
+                    printHelpCommand();
+                    break;
+                case "add":
+                    historyQueue.add("add");
+                    printAddCommand();
+                    break;
+                case "history":
+                    for (int i = 0; i < historyQueue.toArray().length; i++) {
+                        System.out.println(historyQueue.toArray()[i]);
+                    }
+                    break;
+                default:
+                    System.out.println("Command not found. Type \"help\" to get information on an interaction with the program");
+                    break;
             }
             System.out.println("Type in the command:");
             command = in.nextLine();
@@ -71,6 +85,7 @@ public class UserInteraction {
 
     private void printAddCommand() {
         System.out.println("Print the name of the band you would like to add: ");
+
     }
 
 }
