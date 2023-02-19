@@ -4,6 +4,8 @@ import com.lab5.business_entities.CollectionData;
 
 import java.util.*;
 
+import static java.lang.Long.getLong;
+
 public class UserInteraction {
 
     public void start() {
@@ -39,7 +41,7 @@ public class UserInteraction {
                     printHelpCommand();
                     break;
                 case "add":
-                    historyUpdate( historyQueue, "add");
+                    historyUpdate(historyQueue, "add");
                     printAddCommand();
                     break;
                 case "history":
@@ -86,7 +88,16 @@ public class UserInteraction {
 
     private void printAddCommand() {
         System.out.println("Print the name of the band you would like to add: ");
+        Scanner addScanner = new Scanner(System.in);
+        String bandName = addScanner.nextLine();
+        System.out.println("Print the the coordinates of the band in a format {xx.xx,xx.xx}: ");
+        String[] coordinatesString = addScanner.nextLine().split(",");
+        long[] bandCoordinates = {Long.getLong(coordinatesString[0]), Long.getLong(coordinatesString[1])};
+        System.out.println("Type in the number of participants of the band: ");
+        int numberOfParticipants = Integer.parseInt(addScanner.nextLine());
+        
 
+        addScanner.close();
     }
 
     private void historyUpdate(Queue<String> historyQueue, String command) {
