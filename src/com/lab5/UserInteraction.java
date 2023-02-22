@@ -1,6 +1,7 @@
 package com.lab5;
 
 import com.lab5.business_entities.CollectionData;
+import com.lab5.entities.MusicGenre;
 
 import java.util.*;
 
@@ -87,6 +88,9 @@ public class UserInteraction {
     }
 
     private void printAddCommand() {
+
+        MusicGenre genre;
+
         System.out.println("Print the name of the band you would like to add: ");
         Scanner addScanner = new Scanner(System.in);
         String bandName = addScanner.nextLine();
@@ -95,7 +99,18 @@ public class UserInteraction {
         long[] bandCoordinates = {Long.getLong(coordinatesString[0]), Long.getLong(coordinatesString[1])};
         System.out.println("Type in the number of participants of the band: ");
         int numberOfParticipants = Integer.parseInt(addScanner.nextLine());
-        
+        System.out.println("Choose the genre of the musical band within ROCK, JAZZ, PUNK-ROCK or skip the question if neither of the answers are appropriate:");
+        String userGenre = addScanner.nextLine();
+        if (userGenre.equals("ROCK")) {
+            genre = MusicGenre.ROCK;
+        } else if (userGenre.equals("JAZZ")) {
+            genre = MusicGenre.JAZZ;
+        } else if (userGenre.equals("PUNK-ROCK")) {
+            genre = MusicGenre.PUNK_ROCK;
+        } else {
+            genre = null;
+        }
+
 
         addScanner.close();
     }
