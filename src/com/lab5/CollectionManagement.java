@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class CollectionManagement {
 
-    private Set<MusicBand> collection;
+    private HashSet<MusicBand> collection;
     private final String collectionType;
     private final Date date = new Date();
     private final long initialisationDate;
@@ -47,7 +47,7 @@ public class CollectionManagement {
         this.collection = collection;
     }
 
-    public Set<MusicBand> getCollection() {
+    public HashSet<MusicBand> getCollection() {
         return collection;
     }
 }

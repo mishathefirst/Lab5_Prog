@@ -1,17 +1,20 @@
 package com.lab5;
 
 import com.lab5.business_entities.CollectionData;
+import com.lab5.entities.MusicBand;
 import com.lab5.entities.MusicGenre;
 
+import java.io.IOException;
 import java.util.*;
 
 import static java.lang.Long.getLong;
 
 public class UserInteraction {
 
+    FileProcessing fileProcessing = new FileProcessing();
+    CollectionManagement collectionManagement = new CollectionManagement();
+
     public void start() {
-        FileProcessing fileProcessing = new FileProcessing();
-        CollectionManagement collectionManagement = new CollectionManagement();
 
         Queue<String> historyQueue = new ArrayDeque<>(11);
 
@@ -45,6 +48,9 @@ public class UserInteraction {
                     historyUpdate(historyQueue, "add");
                     printAddCommand();
                     break;
+                case "save":
+                    historyUpdate(historyQueue, "save");
+                    saveCollection(fileName);
                 case "history":
                     historyUpdate(historyQueue, "history");
                     for (int i = 0; i < historyQueue.toArray().length; i++) {
@@ -113,6 +119,12 @@ public class UserInteraction {
         //TODO: finish the add() function
 
         addScanner.close();
+    }
+
+    private void saveCollection(String fileName) {
+        System.out.println("Saving collection into file...");
+        fileProcessing.writeCollectionIntoFile(collectionManagement.getCollection(), fileName);
+        System.out.println("Successfully saved!");
     }
 
     private void historyUpdate(Queue<String> historyQueue, String command) {
