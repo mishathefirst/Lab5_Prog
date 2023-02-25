@@ -23,7 +23,7 @@ public class UserInteraction {
         System.out.println("Type in the name of the file");
         Scanner in = new Scanner(System.in);
         String fileName = in.nextLine();
-        collectionManagement.setCollection(fileProcessing.getCollectionFromFile(fileName));
+        collectionManagement.setCollection(fileProcessing.readCollectionFromFile(fileName));
 
         System.out.println("Type in the command:");
         String command = in.nextLine();
