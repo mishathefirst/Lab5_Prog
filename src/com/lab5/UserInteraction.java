@@ -4,8 +4,10 @@ import com.lab5.business_entities.CollectionData;
 import com.lab5.entities.Coordinates;
 import com.lab5.entities.MusicBand;
 import com.lab5.entities.MusicGenre;
+import com.lab5.entities.Studio;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 import static java.lang.Long.getLong;
@@ -117,10 +119,12 @@ public class UserInteraction {
         } else {
             genre = null;
         }
-        //TODO: finish the add() function
+        System.out.println("Type in the name of the studio:");
+        String studioName = addScanner.nextLine();
 
         collectionManagement.add(new MusicBand(collectionManagement.getCollection().size() + 1, bandName,
-                new Coordinates(bandCoordinates[0], bandCoordinates[1])));
+                new Coordinates((int) bandCoordinates[0], bandCoordinates[1]), LocalDate.now(),
+                numberOfParticipants, genre, new Studio(studioName)));
 
         addScanner.close();
     }
