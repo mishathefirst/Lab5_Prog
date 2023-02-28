@@ -16,6 +16,7 @@ public class UserInteraction {
 
     FileProcessing fileProcessing = new FileProcessing();
     CollectionManagement collectionManagement = new CollectionManagement();
+    Scanner in = new Scanner(System.in);
 
     public void start() {
 
@@ -27,7 +28,6 @@ public class UserInteraction {
         //ResourceBundle r = ResourceBundle.getBundle("command_line");
         //System.out.println(r.getString("filegreeting"));
         System.out.println("Type in the name of the file");
-        Scanner in = new Scanner(System.in);
         String fileName = in.nextLine();
         if (fileProcessing.readCollectionFromFile(fileName) == null) {
             collectionManagement.setCollection(new HashSet<MusicBand>());
@@ -59,6 +59,7 @@ public class UserInteraction {
                 case "save":
                     historyUpdate(historyQueue, "save");
                     saveCollection(fileName);
+                    break;
                 case "history":
                     historyUpdate(historyQueue, "history");
                     for (int i = 0; i < historyQueue.toArray().length; i++) {
@@ -106,16 +107,16 @@ public class UserInteraction {
         MusicGenre genre;
 
         System.out.println("Print the name of the band you would like to add: ");
-        Scanner addScanner = new Scanner(System.in);
-        String bandName = addScanner.nextLine();
+        //Scanner addScanner = new Scanner(System.in);
+        String bandName = in.nextLine();
         System.out.println("Print the the coordinates of the band in a format {xx,xx.xx}: ");
-        String[] coordinatesString = addScanner.nextLine().split(",");
+        String[] coordinatesString = in.nextLine().split(",");
         int bandCoordinateX = Integer.parseInt(coordinatesString[0]);
         double bandCoordinateY = Double.parseDouble(coordinatesString[1]);
         System.out.println("Type in the number of participants of the band: ");
-        int numberOfParticipants = Integer.parseInt(addScanner.nextLine());
+        int numberOfParticipants = Integer.parseInt(in.nextLine());
         System.out.println("Choose the genre of the musical band within ROCK, JAZZ, PUNK-ROCK or skip the question if neither of the answers are appropriate:");
-        String userGenre = addScanner.nextLine();
+        String userGenre = in.nextLine();
         if (userGenre.equals("ROCK")) {
             genre = MusicGenre.ROCK;
         } else if (userGenre.equals("JAZZ")) {
@@ -126,14 +127,13 @@ public class UserInteraction {
             genre = null;
         }
         System.out.println("Type in the name of the studio:");
-        String studioName = addScanner.nextLine();
+        String studioName = in.nextLine();
 
-        System.out.println(collectionManagement.getCollection().size());
         collectionManagement.add(new MusicBand(collectionManagement.getCollection().size() + 1, bandName,
-                new Coordinates((int) bandCoordinateX, bandCoordinateY), LocalDate.now(),
+                new Coordinates(bandCoordinateX, bandCoordinateY), LocalDate.now(),
                 numberOfParticipants, genre, new Studio(studioName)));
 
-        addScanner.close();
+        System.out.println("Element successfully added!");
     }
 
     private void saveCollection(String fileName) {
