@@ -1,6 +1,7 @@
 package com.lab5;
 
 import com.lab5.business_entities.CollectionData;
+import com.lab5.entities.Coordinates;
 import com.lab5.entities.MusicBand;
 import com.lab5.entities.MusicGenre;
 
@@ -117,6 +118,9 @@ public class UserInteraction {
             genre = null;
         }
         //TODO: finish the add() function
+
+        collectionManagement.add(new MusicBand(collectionManagement.getCollection().size() + 1, bandName,
+                new Coordinates(bandCoordinates[0], bandCoordinates[1])));
 
         addScanner.close();
     }

@@ -66,4 +66,16 @@ public class MusicBand {
     public void setStudio(Studio studio) {
         this.studio = studio;
     }
+
+    public MusicBand() {}
+
+    public MusicBand(int id, String name, Coordinates coordinates, LocalDate creationDate, long numberOfParticipants, MusicGenre genre, Studio studio) {
+        this.id = id;
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
+        this.numberOfParticipants = numberOfParticipants;
+        this.genre = genre;
+        this.studio = studio;
+    }
 }
