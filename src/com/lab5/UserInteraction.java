@@ -29,7 +29,12 @@ public class UserInteraction {
         System.out.println("Type in the name of the file");
         Scanner in = new Scanner(System.in);
         String fileName = in.nextLine();
-        collectionManagement.setCollection(fileProcessing.readCollectionFromFile(fileName));
+        if (fileProcessing.readCollectionFromFile(fileName) == null) {
+            collectionManagement.setCollection(new HashSet<MusicBand>());
+        } else {
+            collectionManagement.setCollection(fileProcessing.readCollectionFromFile(fileName));
+        }
+
 
         System.out.println("Type in the command:");
         String command = in.nextLine();
@@ -103,9 +108,10 @@ public class UserInteraction {
         System.out.println("Print the name of the band you would like to add: ");
         Scanner addScanner = new Scanner(System.in);
         String bandName = addScanner.nextLine();
-        System.out.println("Print the the coordinates of the band in a format {xx.xx,xx.xx}: ");
+        System.out.println("Print the the coordinates of the band in a format {xx,xx.xx}: ");
         String[] coordinatesString = addScanner.nextLine().split(",");
-        long[] bandCoordinates = {Long.getLong(coordinatesString[0]), Long.getLong(coordinatesString[1])};
+        int bandCoordinateX = Integer.parseInt(coordinatesString[0]);
+        double bandCoordinateY = Double.parseDouble(coordinatesString[1]);
         System.out.println("Type in the number of participants of the band: ");
         int numberOfParticipants = Integer.parseInt(addScanner.nextLine());
         System.out.println("Choose the genre of the musical band within ROCK, JAZZ, PUNK-ROCK or skip the question if neither of the answers are appropriate:");
@@ -122,8 +128,9 @@ public class UserInteraction {
         System.out.println("Type in the name of the studio:");
         String studioName = addScanner.nextLine();
 
+        System.out.println(collectionManagement.getCollection().size());
         collectionManagement.add(new MusicBand(collectionManagement.getCollection().size() + 1, bandName,
-                new Coordinates((int) bandCoordinates[0], bandCoordinates[1]), LocalDate.now(),
+                new Coordinates((int) bandCoordinateX, bandCoordinateY), LocalDate.now(),
                 numberOfParticipants, genre, new Studio(studioName)));
 
         addScanner.close();
