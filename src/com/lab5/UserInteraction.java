@@ -14,9 +14,9 @@ import static java.lang.Long.getLong;
 
 public class UserInteraction {
 
-    FileProcessing fileProcessing = new FileProcessing();
-    CollectionManagement collectionManagement = new CollectionManagement();
-    Scanner in = new Scanner(System.in);
+    private final FileProcessing fileProcessing = new FileProcessing();
+    private final CollectionManagement collectionManagement = new CollectionManagement();
+    private final Scanner in = new Scanner(System.in);
 
     public void start() {
 
@@ -59,6 +59,10 @@ public class UserInteraction {
                 case "save":
                     historyUpdate(historyQueue, "save");
                     saveCollection(fileName);
+                    break;
+                case "clear":
+                    historyUpdate(historyQueue, "clear");
+                    clearCollection();
                     break;
                 case "history":
                     historyUpdate(historyQueue, "history");
@@ -107,7 +111,6 @@ public class UserInteraction {
         MusicGenre genre;
 
         System.out.println("Print the name of the band you would like to add: ");
-        //Scanner addScanner = new Scanner(System.in);
         String bandName = in.nextLine();
         System.out.println("Print the the coordinates of the band in a format {xx,xx.xx}: ");
         String[] coordinatesString = in.nextLine().split(",");
@@ -140,6 +143,11 @@ public class UserInteraction {
         System.out.println("Saving collection into file...");
         fileProcessing.writeCollectionIntoFile(collectionManagement.getCollection(), fileName);
         System.out.println("Successfully saved!");
+    }
+
+    private void clearCollection() {
+        collectionManagement.clear();
+        System.out.println("Collection's been cleared successfully!");
     }
 
     private void historyUpdate(Queue<String> historyQueue, String command) {

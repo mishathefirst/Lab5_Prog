@@ -43,6 +43,10 @@ public class CollectionManagement {
         return collectionElements;
     }
 
+    void clear() {
+        collection.clear();
+    }
+
     public void setCollection(HashSet<MusicBand> collection) {
         this.collection = collection;
     }
