@@ -1,16 +1,17 @@
 package com.lab5;
 
+
 import com.lab5.business_entities.CollectionData;
 import com.lab5.entities.Coordinates;
 import com.lab5.entities.MusicBand;
 import com.lab5.entities.MusicGenre;
 import com.lab5.entities.Studio;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
-import static java.lang.Long.getLong;
 
 public class UserInteraction {
 
@@ -39,41 +40,7 @@ public class UserInteraction {
         System.out.println("Type in the command:");
         String command = in.nextLine();
         while(!command.equals("exit")) {
-            switch (command) {
-                case "info":
-                    historyUpdate(historyQueue, "info");
-                    printCollectionInfo(collectionManagement.info());
-                    break;
-                case "show":
-                    historyUpdate(historyQueue, "show");
-                    System.out.println(collectionManagement.show());
-                    break;
-                case "help":
-                    historyUpdate(historyQueue, "help");
-                    printHelpCommand();
-                    break;
-                case "add":
-                    historyUpdate(historyQueue, "add");
-                    printAddCommand();
-                    break;
-                case "save":
-                    historyUpdate(historyQueue, "save");
-                    saveCollection(fileName);
-                    break;
-                case "clear":
-                    historyUpdate(historyQueue, "clear");
-                    clearCollection();
-                    break;
-                case "history":
-                    historyUpdate(historyQueue, "history");
-                    for (int i = 0; i < historyQueue.toArray().length; i++) {
-                        System.out.println(historyQueue.toArray()[i]);
-                    }
-                    break;
-                default:
-                    System.out.println("Command not found. Type \"help\" to get information on an interaction with the program");
-                    break;
-            }
+            executeCommand(command, fileName, historyQueue);
             System.out.println("Type in the command:");
             command = in.nextLine();
         }
@@ -81,6 +48,49 @@ public class UserInteraction {
     }
 
 
+    private void executeCommand(String command, String fileName, Queue<String> historyQueue) {
+        switch (command) {
+            case "info":
+                historyUpdate(historyQueue, "info");
+                printCollectionInfo(collectionManagement.info());
+                break;
+            case "show":
+                historyUpdate(historyQueue, "show");
+                System.out.println(collectionManagement.show());
+                break;
+            case "help":
+                historyUpdate(historyQueue, "help");
+                printHelpCommand();
+                break;
+            case "add":
+                historyUpdate(historyQueue, "add");
+                printAddCommand();
+                break;
+            case "save":
+                historyUpdate(historyQueue, "save");
+                saveCollection(fileName);
+                break;
+            case "clear":
+                historyUpdate(historyQueue, "clear");
+                clearCollection();
+                break;
+            case "execute_script":
+                historyUpdate(historyQueue, "execute_script");
+                System.out.println("Type in the name of the file with the script:");
+                String scriptFileName = in.nextLine();
+                executeScript(scriptFileName, fileName, historyQueue);
+                break;
+            case "history":
+                historyUpdate(historyQueue, "history");
+                for (int i = 0; i < historyQueue.toArray().length; i++) {
+                    System.out.println(historyQueue.toArray()[i]);
+                }
+                break;
+            default:
+                System.out.println("Command not found. Type \"help\" to get information on an interaction with the program");
+                break;
+        }
+    }
 
     private void printCollectionInfo(CollectionData collectionData) {
         System.out.println("Collection type: " + collectionData.getType());
@@ -98,7 +108,7 @@ public class UserInteraction {
         System.out.println("\"remove_by_id {element's number}\" - remove an element from the collection by its id");
         System.out.println("\"clear\" - clear the collection");
         System.out.println("\"save\" - save changes into the file");
-        System.out.println("\"execute_script {file name}\" - execute a script written in the same format as commands to the prgram");
+        System.out.println("\"execute_script\" - execute a script written in the same format as commands to the prgram");
         System.out.println("\"exit\" - leave the program without saving changes");
         System.out.println("\"history\" - show last 11 commands");
         System.out.println("\"add_if_min\" - add an element if it is the smallest in the collection");
@@ -148,6 +158,25 @@ public class UserInteraction {
     private void clearCollection() {
         collectionManagement.clear();
         System.out.println("Collection's been cleared successfully!");
+    }
+
+    private void executeScript(String scriptFileName, String fileName, Queue<String> historyQueue) {
+        File file = new File(scriptFileName);
+
+        try {
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNext()) {
+                String fileLine = fileScanner.nextLine();
+                if(!fileLine.equals("exit")) {
+                    executeCommand(fileLine, fileName, historyQueue);
+                } else {
+                    System.exit(0);
+                }
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void historyUpdate(Queue<String> historyQueue, String command) {

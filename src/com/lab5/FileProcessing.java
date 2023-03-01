@@ -37,7 +37,6 @@ public class FileProcessing {
                 fileContent.append(fileLine);
             }
             fileScanner.close();
-            //System.out.println(fileContent);
         } catch (IOException e) {
             e.printStackTrace();
         }
